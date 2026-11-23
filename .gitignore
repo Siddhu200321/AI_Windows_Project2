@@ -1,0 +1,25 @@
+# Python virtual environment & cache
+.venv/
+venv/
+ENV/
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Temporary outputs & logs
+*.log
+JARVIS_Screen_*.png
+FRIDAY_Screen_*.png
+SiddhuAI_Screen_*.png
+JARVIS_Note_*.txt
+FRIDAY_Note_*.txt
+
+# Large offline voice models (downloaded separately)
+models/
+vosk-model-*/
+
+# IDE & OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db

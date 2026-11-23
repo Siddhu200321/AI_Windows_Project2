@@ -1,0 +1,6 @@
+pyautogui>=0.9.54
+pyttsx3>=2.97
+psutil>=5.9.0
+SpeechRecognition>=3.10.0
+sounddevice>=0.5.1
+vosk>=0.3.45
