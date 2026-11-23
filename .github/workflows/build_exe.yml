@@ -1,0 +1,37 @@
+name: Build Standalone Windows Executable
+
+on:
+  workflow_dispatch:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  build-exe:
+    runs-on: windows-latest
+
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v4
+
+    - name: Set up Python 3.11
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.11'
+
+    - name: Install Dependencies & PyInstaller
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r siddhu_ai/requirements.txt
+        pip install pyinstaller
+
+    - name: Build Executable with PyInstaller
+      run: |
+        cd siddhu_ai
+        pyinstaller --noconfirm --onedir --windowed --name "SIDDHU_AI" app.py
+
+    - name: Upload Artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: SIDDHU_AI_Windows_App
+        path: siddhu_ai/dist/SIDDHU_AI

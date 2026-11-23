@@ -1,0 +1,35 @@
+name: Verify & Test SIDDHU AI
+
+on:
+  push:
+    branches: [ "main", "master" ]
+  pull_request:
+    branches: [ "main", "master" ]
+  workflow_dispatch:
+
+jobs:
+  build-and-test:
+    runs-on: windows-latest
+
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v4
+
+    - name: Set up Python 3.11
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.11'
+        cache: 'pip'
+
+    - name: Install Dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r siddhu_ai/requirements.txt
+
+    - name: Compile & Syntax Verification
+      run: |
+        python -m py_compile siddhu_ai/app.py
+
+    - name: Headless GUI & Telemetry Smoke Test
+      run: |
+        python -c "import sys; sys.path.insert(0, 'siddhu_ai'); import app, tkinter as tk; r = tk.Tk(); r.withdraw(); a = app.SiddhuAIApp(r); a.running = False; r.update(); print('All systems verified on GitHub Windows Runner!'); r.destroy()"
